@@ -1,16 +1,16 @@
 server:
   host: 127.0.0.1
-  port: 80
+  port: 8080
 database:
   host: "127.0.0.1"
   port: 3306
-  name: "forgottenserver"
+  name: "kingsmanserver"
   user: "root"
-  password: ""
+  password: "13john13"
 worlds:
   - id: 0
-    name: "Localhost"
+    name: "Kingsman Server"
     ip: "127.0.0.1"
     port: 7171
-    location: "EUR"
+    location: "BRA"
     pvp-type: 0

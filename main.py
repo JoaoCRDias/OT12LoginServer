@@ -3,6 +3,7 @@ from tornado.ioloop import IOLoop
 import tornado.web
 import json
 import models
+import os
 
 class MainHandler(tornado.web.RequestHandler):
     def initialize(self, login_server: LoginServer) -> None:
@@ -43,12 +44,17 @@ def main():
     if not login_server.start():
         print("There was a problem with connecting to database.")
         exit()
+    
+    settings = {
+    "static_path": os.path.join(os.path.dirname(__file__), "static"),
+}
 
     app = tornado.web.Application(
         [
             (r"/login", MainHandler, dict(login_server=login_server)),
-            (r"/login.php", MainHandler, dict(login_server=login_server))
-        ]
+            (r"/login.php", MainHandler, dict(login_server=login_server)),
+            (r"/images/(.*)", tornado.web.StaticFileHandler, dict(path=settings['static_path']))
+        ], **settings
     )
 
     conf = models.config.get("server", None)
